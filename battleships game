@@ -1,0 +1,16 @@
+arr = Array.new(10) {Array.new(10, 0)}
+
+print " "
+(0..9). each do |i|
+  print " #{i}"
+end
+
+i=0
+arr.each do |element|
+  puts
+  print "#{i} "
+  element.each do |a|
+    print "#{a} "
+  end
+  i += 1
+end
