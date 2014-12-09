@@ -1,12 +1,56 @@
-arr = Array.new(10) {Array.new(10, 0)}
+require "colorize"
 
-print " "
+grid = Array.new(10) {Array.new(10, '-')}      #redo adds 1?
+                                             #gem files are red?
+print " ".red.on_black                       #double quotes or single ones for strings?
 (0..9). each do |i|
-  print " #{i}"
+  print " #{i}".red.on_black
 end
 
 i=0
-arr.each do |element|
+grid.each do |element1|
+  puts
+  print "#{i} ".red.on_black
+  element1.each do |element2|
+    print "#{element2} "
+  end
+  i += 1
+end
+
+puts
+
+arr2 = ["horizontal","vertical"]
+arr7 = [2, 3, 3, 4, 5]
+arr5 = [2, 2, 2, 2, 2]
+
+(0...5).each do |a|
+  x1=rand(grid.length)
+  y1=rand(grid.length)
+  if grid[x1][y1]==1
+    redo
+  end
+  orientation = arr2[rand(arr2.length)]
+  if orientation == "horizontal"
+    if y1+(arr5[a]-1)<=9 && grid[x1][y1+(arr5[a]-1)]=='-' && grid[x1][y1-(arr5[a]-1)]=='-'
+      grid[x1][y1]=1
+      grid[x1][y1+(arr5[a]-1)]=1
+    else
+      redo
+    end
+  else
+    if x1+(arr5[a]-1)<=9 && grid[x1+(arr5[a]-1)][y1]=='-' && grid[x1-(arr5[a]-1)][y1]=='-'
+      grid[x1][y1]=1
+      grid[x1+(arr5[a]-1)][y1]=1
+    else
+      redo
+    end
+  end
+  print x1
+  print y1
+  print orientation
+end
+
+grid.each do |element|
   puts
   print "#{i} "
   element.each do |a|
