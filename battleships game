@@ -1,60 +1,68 @@
 require "colorize"
 
-grid = Array.new(10) {Array.new(10, '-')}      #redo adds 1?
-                                             #gem files are red?
-print " ".red.on_black                       #double quotes or single ones for strings?
-(0..9). each do |i|
-  print " #{i}".red.on_black
-end
+grid = Array.new(10) {Array.new(10, '-')}
 
-i=0
-grid.each do |element1|
-  puts
-  print "#{i} ".red.on_black
-  element1.each do |element2|
-    print "#{element2} "
-  end
-  i += 1
-end
-
-puts
-
-arr2 = ["horizontal","vertical"]
-arr7 = [2, 3, 3, 4, 5]
-arr5 = [2, 2, 2, 2, 2]
+orientation_array = ["horizontal", "vertical"]
+ship_array = [2, 3, 3, 4, 5]
 
 (0...5).each do |a|
-  x1=rand(grid.length)
-  y1=rand(grid.length)
-  if grid[x1][y1]==1
+  count = 0
+  x = rand(grid.length)
+  y = rand(grid.length)
+  if grid[x][y] == 1
     redo
   end
-  orientation = arr2[rand(arr2.length)]
+  orientation = orientation_array[rand(orientation_array.length)]
   if orientation == "horizontal"
-    if y1+(arr5[a]-1)<=9 && grid[x1][y1+(arr5[a]-1)]=='-' && grid[x1][y1-(arr5[a]-1)]=='-'
-      grid[x1][y1]=1
-      grid[x1][y1+(arr5[a]-1)]=1
+    if y + (ship_array[a] - 1) <= 9
+      (1...ship_array[a]).each do |b|
+        if grid[x][y + b] == '-'
+          count += 1
+        end
+      end
+      if count == ship_array[a] - 1
+        (1...ship_array[a]).each do |c|
+            grid[x][y] = 1
+            grid[x][y + c] = 1
+        end
+      else
+        redo
+      end
     else
       redo
     end
   else
-    if x1+(arr5[a]-1)<=9 && grid[x1+(arr5[a]-1)][y1]=='-' && grid[x1-(arr5[a]-1)][y1]=='-'
-      grid[x1][y1]=1
-      grid[x1+(arr5[a]-1)][y1]=1
+    if x + (ship_array[a] - 1) <= 9
+      (1...ship_array[a]).each do |b|
+        if grid[x + b][y] == '-'
+        count += 1
+        end
+      end
+      if count == ship_array[a] - 1
+        (1...ship_array[a]).each do |c|
+          grid[x][y] = 1
+          grid[x + c][y] = 1
+        end
+      else
+        redo
+      end
     else
       redo
     end
   end
-  print x1
-  print y1
-  print orientation
 end
 
-grid.each do |element|
+print " ".red.on_black
+(0..9). each do |num|
+  print " #{num}".red.on_black
+end
+
+num = 0
+grid.each do |element1|
   puts
-  print "#{i} "
-  element.each do |a|
-    print "#{a} "
+  print "#{num} ".red.on_black
+  element1.each do |element2|
+    print "#{element2} "
   end
-  i += 1
+  num += 1
 end
