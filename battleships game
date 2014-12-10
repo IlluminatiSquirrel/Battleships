@@ -1,6 +1,8 @@
 require "colorize"
 
 grid = Array.new(10) {Array.new(10, '-')}
+grid2 = Array.new(10) {Array.new(10,'-')}
+grid3 = Array.new(10) {Array.new(10, false)}
 
 orientation_array = ["horizontal", "vertical"]
 ship_array = [2, 3, 3, 4, 5]
@@ -52,17 +54,53 @@ ship_array = [2, 3, 3, 4, 5]
   end
 end
 
-print " ".red.on_black
-(0..9). each do |num|
-  print " #{num}".red.on_black
+count = 0
+moves = 0
+loop do
+  puts
+  print "Enter row number: "
+  x2 = gets.chomp().to_i
+  print "Enter column number: "
+  y2 = gets.chomp().to_i
+  if x2 <= -1 || x2 >= 10 || y2 <= -1 || y2 >= 10
+    print "#{x2}, #{y2} is not a valid position"
+    redo
+  end
+  if grid3[x2][y2] == false
+    if grid[x2][y2] == 1
+      grid2[x2][y2] = grid2[x2][y2].red.on_red
+      grid3[x2][y2] = true
+      count += 1
+      puts "You have hit a ship at #{x2}, #{y2}"
+    else
+      grid2[x2][y2] = grid2[x2][y2].blue.on_blue
+      grid3[x2][y2] = true
+      puts "You missed! There's only water at #{x2}, #{y2}"
+    end
+    moves += 1
+    print " ".red.on_black
+    (0..9).each do |num|
+      print " #{num}".red.on_black
+    end
+    num = 0
+    grid2.each do |element1|
+      puts
+      print "#{num} ".red.on_black
+      element1.each do |element2|
+        print "#{element2} "
+      end
+      num += 1
+    end
+  else
+    print "#{x2}, #{y2} is already known"
+    redo
+  end
+  if count == 17
+    puts
+    puts "Congratulations You Won!"
+    print "Your score: #{moves}"
+    break
+  end
 end
 
-num = 0
-grid.each do |element1|
-  puts
-  print "#{num} ".red.on_black
-  element1.each do |element2|
-    print "#{element2} "
-  end
-  num += 1
-end
+
