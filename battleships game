@@ -1,3 +1,7 @@
+=begin
+Written by: Gabriele Kukauskaite
+=end
+
 require "colorize"
 
 grid = Array.new(10) {Array.new(10, '-')}
