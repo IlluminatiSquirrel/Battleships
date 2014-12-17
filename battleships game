@@ -83,22 +83,22 @@ loop do
       grid2[x2][y2] = grid2[x2][y2].red.on_red
       count += 1                                   #keeps track of the squares that have been hit
       puts "You have hit a ship at #{x2}, #{y2}"
-      if grid[x2][y2]==0                           #keeps track of what kind of ships have been hit and if they are destroyed
+      if grid[x2][y2] == 0                         #keeps track of what kind of ships have been hit and if they are destroyed
         ship0 += 1
         if ship0 == 2
           puts 'Sub-marine has been destroyed'
         end
-      elsif grid[x2][y2]==1
+      elsif grid[x2][y2] == 1
         ship1 += 1
         if ship1 == 3
           puts 'Destroyer has been destroyed'
         end
-      elsif grid[x2][y2]==2
+      elsif grid[x2][y2] == 2
         ship2 += 1
         if ship2 == 3
           puts 'Destroyer has been destroyed'
         end
-      elsif grid[x2][y2]==3
+      elsif grid[x2][y2] == 3
         ship3+= 1
         if ship3 == 4
           puts 'Cruiser has been destroyed'
